@@ -1,0 +1,173 @@
+@startuml
+class Disenyar{
+- Escenari escenari
++ carregarDiseny(String)
++ guardarDiseny(String)
++ colocarEleDec(Posicio, Posicio, EleDec)
++ colocarElePer(Posicio, ElePer)
++ colocarEleObj(Posicio, EleObj)
+}
+
+class Client {
+- String nom
+- Persona jugador
+- Servidor servidor
+- Control controls
++ {static} main ( String [] args)
++ EnviarControls()
++ RenderSombres()
++ RenderEscenari()
++ SetConneccio(String)
+}
+
+class Servidor {
+- String nom
+- int ip
+- int [] ipClient
+- Escenari escenari
++ {static} main ( String [] args)
++ connectarJugador()
++ EnviarDades()
++ mourePersonatge()
++ GuardarPartida ()
++ CarreragarPartida ()
+}
+
+abstract class ElementDecoracio.EleDec  {
+- Skin skin
+- String nom
+- Posicio posicio
+}
+
+abstract class ElementObjecta.EleObj {
+- Skin skin
+- String nom
+- Posicio posicio
+}
+
+abstract class ElementPersona.ElePer {
+- String nom
+- Skin skin
+- Posicio posicio
+- float pes
+- int puntsVida
+}
+
+class Control {
++ accio()
+}
+
+class Escenari{
+- int tamanyX
+- int tamanyY
+- ElePer []
+- EleObj []
+- EleDec []
++ Escenari(int, int)
++ colocarObjecte()
++ carregarDiseny(String)
+}
+
+class ElementPersona.Persona extends ElementPersona.ElePer {
+- String [] roba
+- String [] inventari
+- String arma
+- Ruta ruta
++ Persona(String, float, int)
++ getVida
++ reduirVida(int)
++ incrementarVida(int)
++ moviment()
+}
+
+class ElementPersona.Animal extends ElementPersona.ElePer {
++ moviment(Ruta)
+}
+
+class ElementDecoracio.Edifici extends ElementDecoracio.EleDec {
+- int [] tamany
+- boolean buit
+- EleObj []
++ AfegirObjecta()
++ LlevarObjecta()
+}
+
+class ElementDecoracio.Planta extends ElementDecoracio.EleDec {
+- float altura
+- boolean esDinamic
+}
+
+class ElementDecoracio.Carrer extends ElementDecoracio.EleDec {
+- Ruta ruta
+}
+
+
+class ElementObjecta.Vehicle extends ElementObjecta.EleObj {
+- float pes
+- int puntsVida
+- float combustible
+- boolean gastaCombustible
+- final float velocitatMax
+- Ruta ruta
+}
+
+class ElementObjecta.Armes extends ElementObjecta.EleObj {
+- float potencia
+- float municio 
+}
+
+class ElementObjecta.Pocions extends ElementObjecta.EleObj {
+- ArrayList {curacio, mal, potenciadorTipus, ...}
+- int cuantitat
+- float potencia
+}
+
+class ElementObjecta.Roba extends ElementObjecta.EleObj {
+- ArrayList {casc, chaleco, sabates, calçotets}
+- float Potencia
+- float durabilitat
+}
+
+class Ruta{
+- Posicio [] ruta
++ setRuta()
++ getRuta()
+}
+
+class Posicio {
+- int [] posicio
++ getPosicio()
++ setPosicio()
+}
+
+class Skin {
+-ArrayList{} : noms dels fitxers
+-String Path : Ruta fins la carpeta
+}
+
+Disenyar --> Posicio
+
+Posicio --> ElementDecoracio.EleDec
+Posicio --> ElementObjecta.EleObj
+Posicio --> ElementPersona.ElePer
+
+Disenyar -> Escenari
+Escenari <- Servidor
+Servidor -> Client
+Client - Control
+
+Skin --> ElementDecoracio.EleDec
+Skin --> ElementPersona.ElePer
+Skin --> ElementObjecta.EleObj
+
+Escenari --> ElementDecoracio.EleDec
+Escenari --> ElementPersona.ElePer
+Escenari --> ElementObjecta.EleObj
+
+ElementDecoracio.Carrer <-- Ruta
+ElementPersona.Persona <-- Ruta
+ElementObjecta.Vehicle <-- Ruta
+ElementPersona.Animal <-- Ruta
+
+ElementDecoracio.Edifici - ElementObjecta.EleObj
+@enduml
