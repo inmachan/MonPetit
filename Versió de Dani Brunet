@@ -1,0 +1,126 @@
+@startuml
+abstract class Servidor.Personatge{
+    -vida:int
+    -armadura:int
+    -posicio:point
+    
+    +pegar(pers,arma):void 
+    +moure(posicio):void
+    +robar(pers):void
+    +cerca(element):point
+    +comprar(obj):void
+    +equipar(obj):void
+    +beure(pocio):void
+}
+
+class Servidor.Huma{
+    -nom:string
+    -sexe:boolean
+    -ip:string
+    -diners:double
+    -inventari:Arraylist<Objecte>()
+}
+
+abstract class Servidor.Animal{
+    -mal:int
+    -vida:int
+}
+
+class Servidor.Moix{
+}
+
+class Servidor.Rata{
+}
+
+class Servidor.Escenari{
+    -maxJugadors:int
+    -ample:double
+    -alcada:double
+    -elements:Arraylist<Element>()
+    -humans:Arraylist<Huma>()
+    -graella:Arraylist<Ombres>()
+    +Escenari(amp,alc)
+    +guardaEscenari()
+    +carregaEscenari(esc)
+}
+
+class Servidor.Ombres{
+    -elem:ArrayList<Element>()
+}
+
+class Servidor.Banda{
+    -nom:string
+    -personatges:Arraylist<Personatge>()
+}
+
+abstract class Servidor.Objecte{
+    -preu:double
+    +utilitzar():void
+}
+
+class Servidor.Arma{
+    -mal:int
+}
+
+class Servidor.Roba{
+    -armadura:int
+}
+
+class Servidor.Pocions{
+    -augmentVida:int
+}
+
+abstract class Servidor.Element{
+    -ample:int
+    -alcada:int
+    -ubicacio:point
+    -nom:string
+    -descripcio:string
+    +interectuar()
+}
+
+abstract class Servidor.Decorat{
+    -ample:int
+    -alcada:int
+    -ubicacio:point
+    -nom:string
+    -descripcio:string
+    +interectuar()
+}
+
+class Servidor.Farmacia{
+    
+}
+
+class Servidor.Ferreteria{
+
+}
+
+class Servidor.TendaRoba{
+    
+}
+
+class Servidor.Arbre{
+    
+}
+
+Servidor.Ombres "1" -- "1" Servidor.Element
+Servidor.Ombres "1" -- "1" Servidor.Escenari
+Servidor.Escenari "1" -- "*" Servidor.Element
+Servidor.Banda "*" -- "*" Servidor.Huma
+Servidor.Personatge "*" -- "*" Servidor.Objecte
+Servidor.Decorat <-- Servidor.Farmacia
+Servidor.Decorat <-- Servidor.Ferreteria
+Servidor.Decorat <-- Servidor.TendaRoba
+Servidor.Decorat <-- Servidor.Arbre
+Servidor.Element <-- Servidor.Personatge
+Servidor.Element <-- Servidor.Decorat
+Servidor.Element <-- Servidor.Objecte
+Servidor.Objecte <-- Servidor.Pocions
+Servidor.Objecte <-- Servidor.Roba
+Servidor.Objecte <-- Servidor.Arma
+Servidor.Personatge <-- Servidor.Huma
+Servidor.Personatge <-- Servidor.Animal
+Servidor.Animal <-- Servidor.Rata
+Servidor.Animal <-- Servidor.Moix
+@enduml
