@@ -1,0 +1,140 @@
+@startuml
+
+class Servidor.EdicioEscenari{
+    -Enum tipus[Urba, Mar, Muntanya]
+    -Array dimensions[Point x][Point y]
+    -ArrayList elements[Objectes]
+    -String nomMapa = ""
+    
+    +Entorn(Enum tipus, Array dimensions, ArrayList elements)
+    +void guardarEntorn(Entorn mapa)
+    +Entorn carregaEntorn(String nomMapa)
+}
+
+abstract class Servidor.Objecte{
+    -String nom
+    -Point posicioInicial
+    -Integer ample
+    -Integer altura
+
+    +Objecte(String nom, Point ini, Integer ampl, Integer altu)
+    +void editar(getters i setters)
+}
+
+class Servidor.Decoracio{
+    -Boolean interaccio
+    -Boolean entrar
+    -Boolean ventaObj
+    -Boolean romput
+
+    +Decoracio(String nom, Point ini, Integer ampl, Integer altu, Boolean intera, Boolean entr, Boolean venta, Boolean romput)
+}
+
+class Servidor.ObjNocius{
+    -Integer mal
+    -Integer durabilidad
+
+    +ObjNocius(String nom, Point ini, Integer ampl, Integer altu, Integer mal, Integer dura)
+}
+
+class Servidor.Pocions{
+    -Integer puntsVidaRecuperats
+
+    +Pocions(String nom, Point ini, Integer ampl, Integer altu, Integer vidaRecup)
+}
+
+class Servidor.Vestuari{
+    -Integer reduccioMal
+    -Integer durabilidad
+
+    +Vestuari(String nom, Point ini, Integer ampl, Integer reduccio, Integer dura)
+}
+
+class Servidor.ObjMovil{
+    -Integer capacitatDiposit
+    -Integer durabilidad
+
+    +Vestuari(String nom, Point ini, Integer ampl, Integer reduccio, Integer dura)
+}
+
+abstract class Servidor.Personatge{
+    -String nom
+    -Boolean sexe
+    -Boolean jugador
+    -Integer puntsVida
+    -static Boolean viu=true
+
+    +Personatge(String nom, Boolean sexe, Boolean jugador, Integer vida)
+}
+
+class Servidor.Huma{
+    -Enum edat[Petit, Adolescent, Adult, Vell]
+
+    +Personatge(String nom, Boolean sexe, Boolean jugador, Integer vida, Enum edat)
+}
+
+class Servidor.Animal{
+    -Enum tipus[Terrestre, Volador, Aquatic]
+
+    +Personatge(String nom, Boolean sexe, Boolean jugador, Integer vida, Enum tipus)
+}
+
+class Servidor.Partida{
+    -String ip
+    -Entorn escenari
+    -ArrayList persones[Personatge]
+    -static Integer numClients
+
+    +Partida(Entorn escenari, ArrayList personatges)
+}
+
+class Servidor.Joc{
+    -Partida partida
+
+    +carregarPartida(Partida p)
+    +guardarPartida(String nomPartida, Partida p)
+}
+
+Servidor.Partida -- Servidor.Joc
+Servidor.Partida -- Servidor.EdicioEscenari
+Servidor.EdicioEscenari -- Servidor.Objecte
+Servidor.Objecte <|-- Servidor.Decoracio
+Servidor.Objecte <|-- Servidor.ObjNocius
+Servidor.Objecte <|-- Servidor.Pocions
+Servidor.Objecte <|-- Servidor.Vestuari
+Servidor.Objecte <|-- Servidor.ObjMovil
+Servidor.Objecte <|-- Servidor.Personatge
+Servidor.Personatge <|-- Servidor.Huma
+Servidor.Personatge <|-- Servidor.Animal
+
+class Client.Client{
+    -String ip
+    -Personatge p
+    
+    +Client(String ip, Personatge p)
+    +void conectarPartida(String ip, )
+}
+
+abstract class Client.Personatge{
+    -String nom
+    -Boolean sexe
+    -Boolean jugador
+    -Integer puntsVida
+    -static Boolean viu=true
+
+    +Personatge(String nom, Boolean sexe, Boolean jugador, Integer vida)
+    +void accions()
+}
+
+class Client.Huma{
+    -Enum edat[Petit, Adolescent, Adult, Vell]
+
+    +Personatge(String nom, Boolean sexe, Boolean jugador, Integer vida, Enum edat)
+    +void accions()
+}
+
+Client.Client -- Client.Personatge
+Client.Personatge <|-- Client.Huma
+
+Client -- Servidor
+@enduml
