@@ -1,0 +1,120 @@
+@startuml
+class Server.Game{
+
+    -String Name
+    -Datetime date
+    -ArrayList Request
+
+    +void startNewGame()
+    +void testGame()
+    
+}
+
+class Server.Environment{
+    
+    -String Name
+    -Integer Width
+    -Integer High
+    -Point Position
+
+    +Environment (String Name,Point Position,Integer Width,Integer High)
+    +void setEnvironment (String Name,Point Position,Integer Width,Integer High)
+    +void interactuarEnvironment()
+}   
+
+class Server.Object{
+
+    -String Name
+    -Integer Durability
+
+    +Object (String Name,Integer Durability)
+    +void setObject(String Name,Integer Durability)
+    +void interactObjects()
+    
+}
+
+class Server.Damaging{
+    
+    -Integer Damage
+
+    +Damage (String Name,Integer Durability,Integer Damage)
+    +void setDamage(String Name,Integer Durability,Integer Damage)
+
+}
+
+class Server.Potions{
+    
+    -Integer recovery
+
+    +Poctions (String Name,Integer Durability,Integer Recovery)
+    +void setPotions(String Name,Integer Durability,Integer Recovery)
+}
+
+class Server.Mobile{
+    
+    -Integer Speed
+
+    +Mobile (String Name,Integer Durability,Integer Speed)
+    +void setMobile (String Name,Integer Durability,Integer Speed)
+}
+
+class Server.Clothes{
+    
+    -Integer Defence
+
+    +Clothes (String Name,Integer Durability,Integer Defence)
+    +void setClothes (String Name,Integer Durability,Integer Defense)
+}
+
+abstract class Server.Personage{
+    -String Name
+    -Boolean Sex
+    -Integer Life
+    -static Boolean life = true
+
+    +Personage (String Name, Boolean Sex, Integer Life)
+}
+
+class Server.Human{
+    -Enum Stage [Small, Child, Adult, Old]
+
+    +Human (String Name, Boolean Sex, Integer Life, Enum Stage)
+}
+
+class Server.Animal{
+    -Enum type [Terrestial, Flying, Aquatic]
+
+    +Animal (String Name, Boolean Sex, Integer Life, Enum Type)
+}
+
+class Client.Client{
+    -String Ip
+    -Personages Personage
+    
+    +Client (String Ip, Personatges Pj)
+    +void connect (String Ip,Personatges Pj )
+}
+
+abstract class Client.Personages{
+    -String Name
+    -Boolean Sex
+    -Integer Life
+    -static Boolean life = true
+
+    +Personages(String Name, Boolean Sex, Integer Life, Enum Stage)
+    
+}
+
+Client.Client -- Client.Personages
+Client -right-- Server
+Server.Game -left-- Server.Personage
+Server.Game -- Server.Environment
+Server.Object <|-- Server.Damaging
+Server.Object <|-- Server.Potions
+Server.Object <|-- Server.Clothes
+Server.Object <|-- Server.Mobile
+Server.Personage -- Server.Object
+Server.Personage <|-- Server.Human
+Server.Personage <|-- Server.Animal
+
+@enduml
