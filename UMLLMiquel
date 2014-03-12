@@ -1,0 +1,147 @@
+@startuml
+
+class Servidor.Joc{
+
+    -String Nom
+    -ArrayList Requeriments
+
+    +void Jugar()
+    
+}
+
+class Servidor.Escenari{
+
+    -Array Dimensions [][]
+
+    +void Escenari(Array Dimensions [][])
+}
+
+class Servidor.Entorn{
+    
+    -String Nom
+    -Integer Ample
+    -Integer Llarg
+    -Integer Alçada
+    -Point Posicio
+
+    +Entorn(String Nom,Point Posicio,Integer Ample,Integer Llarg,Integer Alçada)
+    +void editarEntorn(String Nom,Point Posicio,Integer Ample,Integer Llarg,Integer Alçada)
+    +void interactuarEntorn()
+}   
+
+class Servidor.Objecte{
+
+    -String Nom
+    -Integer Durabilitat
+
+    +Objecte(String Nom,Integer Durabilitat)
+    +void editarObjecte(String Nom,Integer Durabilitat)
+    +void interactuarOBjectes()
+    
+}
+
+class Servidor.Nocius{
+    
+    -Integer Mal
+
+    +Nocius(String Nom,Integer Durabilitat,Integer Mal)
+    +void editarNocius(String Nom,Integer Durabilitat,Integer Mal)
+
+}
+
+class Servidor.Pocions{
+    
+    -Integer Curacio
+
+    +Pocions(String Nom,Integer Durabilitat,Integer Curacio)
+    +void editarPocions(String Nom,Integer Durabilitat,Integer Curacio)
+}
+
+class Servidor.Roba{
+    
+    -Integer Defensa
+
+    +Roba(String Nom,Integer Durabilitat,Integer Defensa)
+    +void editarRoba(String Nom,Integer Durabilitat,Integer Defensa)
+}
+
+class Servidor.Movil{
+    
+    -Integer Velocitat
+
+    +Movil(String Nom,Integer Durabilitat,Integer Velocitat)
+    +void editarMovil(String Nom,Integer Durabilitat,Integer Velocitat)
+}
+
+
+abstract class Servidor.Personatges{
+    -String Nom
+    -Boolean Sexe
+    -Integer Vida
+    -static Boolean viu=true
+
+    +Personatge(String Nom, Boolean Sexe, Integer Vida)
+}
+
+class Servidor.Huma{
+    -Enum Etapa[Petit, Adolescent, Adult, Vell]
+
+    +Huma(String Nom, Boolean Sexe, Integer Vida, Enum Etapa)
+}
+
+class Servidor.Animal{
+    -Enum tipus[Terrestre, Volador, Aquatic]
+
+    +Animal(String Nom, Boolean Sexe, Integer Vida, Enum Tipus)
+}
+
+   
+
+
+
+
+Servidor.Joc -- Servidor.Personatges
+Servidor.Joc -- Servidor.Escenari
+Servidor.Escenari -- Servidor.Entorn
+Servidor.Objecte <|-- Servidor.Nocius
+Servidor.Objecte <|-- Servidor.Pocions
+Servidor.Objecte <|-- Servidor.Roba
+Servidor.Objecte <|-- Servidor.Movil
+Servidor.Huma -- Servidor.Objecte
+Servidor.Personatges <|-- Servidor.Huma
+Servidor.Personatges <|-- Servidor.Animal
+
+
+
+
+
+
+
+
+class Client.Client{
+
+    -String IpServidor
+    -Personatges Pj
+    
+    +Client(String IpServidor, Personatges Pj)
+    +void conectar(String IpServidor,Personatges Pj )
+}
+
+abstract class Client.Personatges{
+    -String Nom
+    -Boolean Sexe
+    -Integer Vida
+    -static Boolean viu=true
+
+    +Personatges(String Nom, Boolean Sexe, Integer Vida, Enum Etapa)
+    +void Accions()
+    
+}
+
+Client.Client -- Client.Personatges
+Client -- Servidor
+
+
+
+
+@enduml
