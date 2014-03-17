@@ -1,0 +1,165 @@
+@startuml
+class EditorEscenari{
+-Escenari : Escenari
+-AmpleGraella : int
+-AltGraella : int
+}
+
+class Escenari{
+-nom : String
+-forma : String
+-colors : String
+-expansio : int
+-clima : String
+-horari : int
+-transitable : boolean
+-llistaObjectes : Objectes
+-llistaElements : Elements
++void estructura(Objectes[] llistatObjectes)
++void carregar(Elements[] llistatElements)
++void clima(String tipus)
++void horari(String hora)
+}
+
+class Objectes{
+-nom : String
+-forma: String
+-color: String
++void crearObjecte(tipus)
++void estatObjecte()
++void ubicacioObjecte()
+}
+
+abstract class Elements{
+-Ampl : int
+-Alt : int
+-xEsc : int
+-yEsc : int
+-Nom : String
+-Descripcio:  String
+}
+
+class Troços{
+-element : EleDec
+}
+
+class Ombre{
+-llista : Troços
+}
+
+abstract class EleDec{
+-idElement : int
+}
+
+class Farola{
+-estat : boolean
++void ferXispes()
+}
+
+class Asfalt{
+-tamany : int[][]
+-color : String
+}
+
+
+class Farmacia{
+-estat : boolean
++void comprarMedicina()
++void robarCaixa()
+}
+
+class Benzinera{
+-estat : boolean
++void posarBenzina()
++void prendreFoc()
+}
+
+abstract class EleObj{
+-idElement : int
+}
+
+class Nocius{
+-tipus : String
+-mal : int
+-durada : int
++void pegar()
++void tirar()
+}
+
+class Pocions{
+-tipus : String
+-sumaVida : int
+-restaVida : int
++void prendrePocio()
+}
+
+class Roba{
+-tipus : String
+-color : String
+-durada : int
++void posarPrenda()
++void llevarPrenda()
+}
+class Mobils{
+-tipus : String
+-tamany : int[][]
+-color : String
+-posicioX : int
+-posicioY : int
++moureMobil()
++llevarMobil()
++afegirMobil()
+}
+
+
+abstract class ElePer{
+-idElement : int
+-nom : String
+-edad : int
+-sexe : char
+}
+
+abstract class Animals{
+-tipus : String
+-tamany : String
+}
+class Humans{
+- roba : String [] 
+- inventari : String [] 
+- arma : String
++ void moviment()
++ void afegirVida(int)
++ void llevarVida(int)
+}
+
+class Rata{
++void mosega()
+}
+
+class Moix{
++void meula()
+}
+
+class EditorEscenari -down--> class Escenari
+class Escenari -down--> class Objectes
+class Escenari -down--> class Ombre
+abstract class EleDec -up--> abstract class Elements
+abstract class EleObj -up--> abstract class Elements
+abstract class ElePer -up--> abstract class Elements
+class Ombre -down--> class Troços
+class Humans -up--> abstract class ElePer
+abstract class Animals -up--> abstract class ElePer
+class Moix -up--> abstract class Animals
+class Rata -up--> abstract class Animals
+
+class Asfalt -up--> abstract class EleDec
+class Farola -up--> abstract class EleDec
+class Farmacia -up--> abstract class EleDec
+class Benzinera -up--> abstract class EleDec
+
+class Nocius -up--> abstract class EleObj
+class Pocions -up--> abstract class EleObj
+class Roba -up--> abstract class EleObj
+class Mobils -up--> abstract class EleObj
+
+@enduml
