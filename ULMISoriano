@@ -1,0 +1,174 @@
+@startuml
+
+class Escenario{
+-dimensiones:int
+-numeroCeldas:int
+
+}
+
+abstract class Elementos{
+-forma:string
+-color:string
+-dimensiones:int
+}
+
+abstract class eleDec{
+}
+
+class farmacia{
+-estado:boolean
+}
+class asfalto{
+-mViales:string
+-tamaño:int
+}
+class farola{
+-estado:boolean
++void encender()
++void apagar()
+}
+class gasolinera{
+-estado:boolean
++void ponerGasolina()
+}
+class obra{
+-tamaño:int
+}
+class solares{
+-tamaño:int
+}
+class tierra{
+-tamaño:int
+}
+class hierba{
+-tamaño:int
+}
+
+eleDec <--- farmacia
+eleDec <-- asfalto
+eleDec <--- farola
+eleDec <-- gasolinera
+eleDec <--- obra
+eleDec <-- solares
+eleDec <--- tierra
+eleDec <-- hierba
+
+
+abstract class eleObj{
+}
+
+class armas{
++void usar()
+}
+
+class pieCabra{
+}
+class bateClavos{
+}
+
+armas <--- pieCabra
+armas <--- bateClavos
+
+class pociones{
+-cantidad:int
++void beber()
+}
+
+class bebEnerg {
+}
+class aguaOx{
+}
+
+pociones <-- bebEnerg
+pociones <-- aguaOx
+
+class ropa{
++void poner()
++void quitar()
+}
+
+class calzado{
+-color:string
+-tipo:string
+-atributos:string
+}
+class casco{
+-color:string
+-tipo:string
+-atributos:string
+}
+class pantalones{
+-color:string
+-tipo:string
+-atributos:string
+}
+class chalAnti{
+-color:string
+-tipo:string
+-atributos:string
+}
+
+ropa <--- calzado
+ropa <--- casco
+ropa <--- pantalones
+ropa <--- chalAnti
+
+class transporte{
++void mover()
+}
+
+class coche{
+-modelo:string
+}
+class autobus{
+}
+
+transporte <-- coche
+transporte <-- autobus
+
+eleObj <--- armas
+eleObj <--- pociones
+eleObj <--- ropa
+eleObj <--- transporte
+
+abstract class elePer{
+}
+
+class personas{
+-tamaño:int
+-cPelo:string
++void mover()
++void atacar()
+}
+class animales{
+-tamaño:int
+-tipo:int
++void mover()
+}
+
+elePer <-- personas
+elePer <-- animales
+
+Elementos -up-> Escenario
+Elementos <-up- eleDec
+Elementos <-- eleObj
+Elementos <--- elePer
+elePer <--> eleDec
+elePer <--> eleObj
+
+class APP{
+}
+
+class Servidor{
+}
+
+class Cliente{
++void entrar()
+}
+
+APP --> Servidor
+APP <-- Cliente
+
+Cliente <--- personas
+
+@enduml
